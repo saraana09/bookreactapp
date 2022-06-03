@@ -1,12 +1,27 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useState, useReducer, createContext } from "react";
 import { Routes, Route, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import Favorites from "./Components/Favorites";
 import Books from "./Components/Books";
 import Home from "./Components/Home";
 
+export const FavoritesContext = createContext();
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "add_favorite":
+      return [...state, action.payload];
+    case "clear_favorites":
+      return [];
+    case "remove_favorite":
+      return state;
+    default:
+      return state;
+  }
+};
+
 function App() {
+  const [favorites, dispatch] = useReducer(reducer, []);
   const [books, setBooks] = useState({});
   const navigate = useNavigate();
   const url = `https://www.googleapis.com/books/v1/volumes?q=${books}&key=${process.env.REACT_APP_API_KEY}&maxResults=5`;
@@ -34,16 +49,21 @@ function App() {
         <Link to="/">Home</Link>
         <Link to="/favorites">Favorites</Link>
       </nav>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <Home handleSubmit={handleSubmit} handleChange={handleChange} />
-          }
-        ></Route>
-        <Route path="/books" element={<Books books={books} />}></Route>
-        <Route path="/favorites" element={<Favorites books={books} />}></Route>
-      </Routes>
+      <FavoritesContext.Provider value={favorites}>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Home handleSubmit={handleSubmit} handleChange={handleChange} />
+            }
+          ></Route>
+          <Route path="/books" element={<Books books={books} />}></Route>
+          <Route
+            path="/favorites"
+            element={<Favorites books={books} />}
+          ></Route>
+        </Routes>
+      </FavoritesContext.Provider>
     </div>
   );
 }
