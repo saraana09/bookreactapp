@@ -11,10 +11,6 @@ const reducer = (state, action) => {
   switch (action.type) {
     case "add_favorite":
       return [...state, action.payload];
-    case "clear_favorites":
-      return [];
-    case "remove_favorite":
-      return state;
     default:
       return state;
   }
@@ -41,8 +37,6 @@ function App() {
       console.error(error);
     }
   };
-
-  console.log(books);
   return (
     <div className="App">
       <nav className="navbar">
@@ -57,10 +51,19 @@ function App() {
               <Home handleSubmit={handleSubmit} handleChange={handleChange} />
             }
           ></Route>
-          <Route path="/books" element={<Books books={books} />}></Route>
+          <Route
+            path="/books"
+            element={<Books books={books} dispatch={dispatch} />}
+          ></Route>
           <Route
             path="/favorites"
-            element={<Favorites books={books} />}
+            element={
+              <Favorites
+                favorites={favorites}
+                books={books}
+                dispatch={dispatch}
+              />
+            }
           ></Route>
         </Routes>
       </FavoritesContext.Provider>

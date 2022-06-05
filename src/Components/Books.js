@@ -1,15 +1,15 @@
 import React, { useContext } from "react";
 import { FavoritesContext } from "../App";
 import { Card, Button } from "react-bootstrap";
-// import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const Books = ({ books, dispatch }) => {
   const favorites = useContext(FavoritesContext);
   return (
     <div className="book">
-      <h4>It is Books route</h4>
-      {books?.items?.map((item) => (
-        <Card>
+      <h4>Google Books Result</h4>
+      {books?.items?.map((item, index) => (
+        <Card key={index} style={{ width: "18rem" }}>
           <Card.Img
             variant="top"
             src={
@@ -20,27 +20,14 @@ const Books = ({ books, dispatch }) => {
             alt={item.title}
           />
           <Card.Title key={item.id}>{item.volumeInfo.title}</Card.Title>
-          <Card.Text>{item.volumeInfo.description}</Card.Text>
-
+          <Card.Text>{item.volumeInfo.authors}</Card.Text>
           <Button
             type="button"
-            onClick={() => dispatch({ type: "add_favorite", payload: books })}
+            onClick={() => dispatch({ type: "add_favorite", payload: item })}
           >
             Add to Favorite
           </Button>
         </Card>
-        // <li key={item.id}>
-        //   {" "}
-        //   {item.volumeInfo.title} <br />
-        //   <img
-        //     src={
-        //       item.volumeInfo.imageLinks !== undefined
-        //         ? item.volumeInfo.imageLinks.thumbnail
-        //         : ""
-        //     }
-        //     alt={item.title}
-        //   />
-        // </li>
       ))}
     </div>
   );
