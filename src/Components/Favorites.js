@@ -7,9 +7,9 @@ const Favorites = () => {
   console.log(favorites);
   return (
     <div className="fav">
-      <h3>My Favorites</h3>
+      <h1>My Favorites</h1>
       {favorites?.map((item, index) => (
-        <Card key={index} style={{ width: "18rem" }}>
+        <Card key={index}>
           <Card.Img
             variant="top"
             src={
