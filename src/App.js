@@ -1,10 +1,10 @@
-import "./App.css";
 import React, { useState, useReducer, createContext } from "react";
 import { Routes, Route, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import Favorites from "./Components/Favorites";
 import Books from "./Components/Books";
 import Home from "./Components/Home";
+import "./App.css";
 
 export const FavoritesContext = createContext();
 const reducer = (state, action) => {
@@ -40,8 +40,12 @@ function App() {
   return (
     <div className="App">
       <nav className="navbar">
-        <Link to="/">Home</Link>
-        <Link to="/favorites">Favorites</Link>
+        <Link to="/" className="link">
+          Home
+        </Link>
+        <Link to="/favorites" className="link">
+          My Books
+        </Link>
       </nav>
       <FavoritesContext.Provider value={favorites}>
         <Routes>

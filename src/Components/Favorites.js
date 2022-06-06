@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 import { FavoritesContext } from "../App";
-import { Card } from "react-bootstrap";
+import { Card, FloatingLabel, Form } from "react-bootstrap";
 
 const Favorites = () => {
   const favorites = useContext(FavoritesContext);
   console.log(favorites);
   return (
-    <div>
-      <h3>Favorites</h3>
+    <div className="fav">
+      <h3>My Favorites</h3>
       {favorites?.map((item, index) => (
         <Card key={index} style={{ width: "18rem" }}>
           <Card.Img
@@ -20,7 +20,13 @@ const Favorites = () => {
             alt={item.title}
           />
           <Card.Title key={item.id}>{item.volumeInfo.title}</Card.Title>
-          <Card.Text>{item.volumeInfo.authors}</Card.Text>
+          <FloatingLabel controlId="floatingTextarea2" label="Comments">
+            <Form.Control
+              as="textarea"
+              placeholder="Leave a comment here"
+              style={{ height: "100px" }}
+            />
+          </FloatingLabel>
         </Card>
       ))}
     </div>
