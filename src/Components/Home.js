@@ -1,10 +1,10 @@
 import React from "react";
-
+import Header from "./Header";
 const Home = (props) => {
   return (
     <div className="home">
       <div className="row1">
-        <h2>Find Your Book</h2>
+        <Header header="Find Your Book" />
         <div className="search">
           <form onSubmit={props.handleSubmit}>
             <input

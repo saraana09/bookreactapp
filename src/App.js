@@ -5,11 +5,14 @@ import Favorites from "./Components/Favorites";
 import Books from "./Components/Books";
 import Home from "./Components/Home";
 import "./App.css";
+import Footer from "./Components/Footer";
 
 export const FavoritesContext = createContext();
 const reducer = (state, action) => {
   switch (action.type) {
     case "add_favorite":
+      return [...state, action.payload];
+    case "remove_favorite":
       return [...state, action.payload];
     default:
       return state;
@@ -71,6 +74,8 @@ function App() {
           ></Route>
         </Routes>
       </FavoritesContext.Provider>
+
+      <Footer footer="Enjoy your favorite book with a cup of coffee" />
     </div>
   );
 }
