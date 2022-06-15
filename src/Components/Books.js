@@ -22,6 +22,9 @@ const Books = ({ books, dispatch }) => {
             <div>
               <Card.Title key={item.id}>{item.volumeInfo.title}</Card.Title>
               <Card.Body>{item.volumeInfo.authors}</Card.Body>
+              <Card.Link href={item.volumeInfo.infoLink} target="_blank">
+                More Info
+              </Card.Link>
             </div>
             <Button
               type="button"
